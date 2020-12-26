@@ -1,0 +1,23 @@
+module.exports = {
+  name: "clear",
+  description: "",
+  args: true,
+  usage: [ "liczba" ],
+  guildOnly: true,
+  cooldown: 10,
+  aliases: [ "clean", "cls", "clr" ],
+
+  run(msg, args) {
+    const { channel } = msg
+    if (args[0] == null) {
+      channel.send("Musisz podać jakąś liczbę!")
+      return
+    }
+    const amount = parseInt(args[0])
+    if (!Number.isInteger(amount)) return channel.send("Wartość, którą podałeś nie jest liczbą!")
+
+    if (amount < 2 || amount > 100) return channel.send("Liczba musi być z przedziału od 2 do 100!")
+
+    channel.bulkDelete(amount)
+  }
+}
