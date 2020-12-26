@@ -3,5 +3,5 @@ module.exports = {
   prefix: "/",
   argsChar1: "{",
   argsChar2: "}",
-  cooldownDefaultAmount: 3,
+  cooldownDefaultAmount: 0,
 }

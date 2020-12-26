@@ -4,7 +4,6 @@ module.exports = {
   args: true,
   usage: [ "liczba" ],
   guildOnly: true,
-  cooldown: 10,
   aliases: [ "clean", "cls", "clr" ],
 
   run(msg, args) {
