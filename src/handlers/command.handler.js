@@ -55,12 +55,9 @@ module.exports = (client) => {
     }
 
     if (cmd.args && !args.length) {
-      let reply = "Poprawne użycie komendy: " + prefix + cmdName
+      var reply = "Poprawne użycie komendy: " + prefix + cmdName
 
-      if (cmd.usage) {
-        for (var i = 0; i < cmd.usage.length; i++)
-        reply = reply + " " + argsChar1 + cmd.usage[i] + argsChar2
-      }
+      if (cmd.usage) reply = reply + " " + cmd.usage
 
       return msg.channel.send(reply)
     }

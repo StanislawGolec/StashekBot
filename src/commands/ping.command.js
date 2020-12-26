@@ -1,6 +1,6 @@
 module.exports = {
   name: "ping",
-  description: "",
+  description: "Bot odpisuje \"Pong!\".",
 
   run(msg) {
     const { channel } = msg

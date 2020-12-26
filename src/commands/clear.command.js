@@ -1,8 +1,11 @@
+const { argsChar1 } = require(__dirname + "/../config/config.js")
+const { argsChar2 } = require(__dirname + "/../config/config.js")
+
 module.exports = {
   name: "clear",
-  description: "",
+  description: "Bot usuwa daną ilość ostatnich wiadomości na konkretnym kanale.",
   args: true,
-  usage: [ "liczba" ],
+  usage: argsChar1 + "liczba" + argsChar2,
   guildOnly: true,
   aliases: [ "clean", "cls", "clr" ],
 

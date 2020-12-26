@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "info",
-  description: "",
+  description: "Bot wypisuje informacje o sobie.",
 
   run(msg) {
     const { channel } = msg
