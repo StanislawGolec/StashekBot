@@ -16,7 +16,7 @@ module.exports = {
       data.push("Lista wszystkich komend:")
       data.push(commands.map((command) => command.name).join(", "))
       data.push("Użyj tej komendy w taki sposób: \"" + prefix + "help " + argsChar1 + "command name" + argsChar2 + "\", aby dowiedzieć się więcej o danej komendzie.")
-      msg.channel.send(data. {split: true})
+      msg.channel.send(data, { split: true })
     }
     else {
       const name = args[0].toLowerCase()
@@ -38,7 +38,7 @@ module.exports = {
         data.push("Poprawne użycie komendy: " + prefix + command.name + usage)
         data.push("Cooldown: " + '${command.cooldown || cooldownDefaultAmount}')
 
-        msg.channel.send(data. {split: true})
+        msg.channel.send(data, { split: true })
       }
     }
   }
