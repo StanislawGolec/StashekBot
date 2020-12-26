@@ -1,5 +1,4 @@
-const { argsChar1 } = require(__dirname + "/../config/config.js")
-const { argsChar2 } = require(__dirname + "/../config/config.js")
+const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
 
 module.exports = {
   name: "clear",

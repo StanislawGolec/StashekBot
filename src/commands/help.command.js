@@ -1,9 +1,4 @@
-const { prefix } = require(__dirname + "/../config/config.js")
-const { argsChar1 } = require(__dirname + "/../config/config.js")
-const { argsChar2 } = require(__dirname + "/../config/config.js")
-const { argsChar3 } = require(__dirname + "/../config/config.js")
-const { argsChar4 } = require(__dirname + "/../config/config.js")
-const { cooldownDefaultAmount } = require(__dirname + "/../config/config.js")
+const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount } = require(__dirname + "/../config/config.js")
 
 module.exports = {
   name: "help",

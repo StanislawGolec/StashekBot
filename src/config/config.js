@@ -7,4 +7,6 @@ module.exports = {
   argsChar4: "]",
   language: "Polish",
   cooldownDefaultAmount: 0,
+  owner: "459746387811106827",
+  coronaApi: "https://corona.lmao.ninja"
 }

@@ -4,10 +4,12 @@ const chalk = require("chalk")
 const { token } = require(__dirname + "/config/config.js")
 
 const commandHandler = require(__dirname + "/handlers/command.handler")
+const coronaApiHandler = require(__dirname + "/handlers/coronaApi.handler")
 
 const client = new Client()
 
 commandHandler(client)
+coronaApiHandler(client)
 
 client.on("ready", () => {
   console.log(chalk.green("Zalogowano jako " + client.user.tag + "!"))

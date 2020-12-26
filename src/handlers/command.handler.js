@@ -1,10 +1,7 @@
 const { Collection } = require("discord.js")
 const { readdirSync } = require("fs")
 const ascii = require("ascii-table")
-const { prefix } = require(__dirname + "/../config/config.js")
-const { argsChar1 } = require(__dirname + "/../config/config.js")
-const { argsChar2 } = require(__dirname + "/../config/config.js")
-const { cooldownDefaultAmount } = require(__dirname + "/../config/config.js")
+const { prefix, cooldownDefaultAmount } = require(__dirname + "/../config/config.js")
 
 const table = new ascii().setHeading("Command", "Load status")
 
@@ -27,6 +24,8 @@ module.exports = (client) => {
   }
 
   console.log(table.toString())
+
+  //client.on("messageUpdate", (oldMessage, newMessage) => {})
 
   client.on("message", (msg) => {
     const { author, guild, channel } = msg
