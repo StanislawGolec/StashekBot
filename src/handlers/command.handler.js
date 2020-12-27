@@ -28,7 +28,7 @@ module.exports = (client) => {
   //client.on("messageUpdate", (oldMessage, newMessage) => {})
 
   client.on("message", (msg) => {
-    const { author, guild, channel } = msg
+    const { author, guild, member, channel } = msg
 
     if (author.bot) return
 
@@ -51,6 +51,20 @@ module.exports = (client) => {
 
     if (cmd.guildOnly && !guild) {
       return msg.channel.send("Ta komenda działa tylko na serwerach Discord!")
+    }
+
+    if (cmd.userPermissions && cmd.userPermissions.length) {
+      if (!member.permissionsIn(channel).has(cmd.userPermissions)) {
+        return channel.send("Nie masz uprawnień do używania tej komendy w tym kanale!")
+      }
+    }
+
+    if (cmd.botPermissions && cmd.botPermissions.length) {
+      if (!guild.me.permissionsIn(channel).has(cmd.botPermissions)) {
+        channel.send("Nie mam uprawnień do używania tej komendy w tym kanale!")
+        if (member.permissionsIn(channel).has("ADMINISTRATOR")) member.send("Brakujące uprawnienia do użycia komendy \"" + cmd.name + "\" w kanale <#" + channel + ">: **" + cmd.botPermissions.join("**, **") + "**.\nWiadomość wysyłana tylko do administratorów danego serwera.")
+        return
+      }
     }
 
     if (cmd.args && !args.length) {

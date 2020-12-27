@@ -3,12 +3,13 @@ const { MessageEmbed } = require("discord.js")
 module.exports = {
   name: "info",
   description: "Bot wypisuje informacje o sobie.",
+  botPermissions: [ "EMBED_LINKS" ],
 
   run(msg) {
     const { channel } = msg
 
-    const botName = "SCTestBotJS1"
-    const botDescription = "Uniwersalny Bot!"
+    const botName = "SCpl Bot"
+    const botDescription = "Uniwersalny Bot"
     const botAuthor = "SCpl"
     const botVersion = "1.0.0"
 

@@ -1,0 +1,34 @@
+const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
+
+module.exports = {
+  name: "kick",
+  description: "Bot wyrzuca daną osobę z serwera.",
+  args: true,
+  usage: argsChar1 + "użytkownik" + argsChar2 + " " + argsChar1 + "powód" + argsChar2,
+  guildOnly: true,
+  botPermissions: [ "KICK_MEMBERS" ],
+  userPermissions: [ "KICK_MEMBERS" ],
+
+
+  run(msg, args) {
+    const { channel, guild, author, mentions } = msg
+
+    const user = mentions.users.first()
+    const reason = [...args].slice(1).join(" ")
+
+    if (!user) return channel.send("Musisz podać użytkownika do wyrzucenia!")
+
+    if (!reason) return channel.send("Musisz podać powód wyrzucenia!")
+
+    if (user.id == author.id) return channel.send("Nie możesz wyrzucić samego siebie!")
+
+    const member = guild.members.cache.get(user.id)
+
+    if (!member.kickable) return channel.send("Nie mam uprawnień do wyrzucenia tego użytkownika!")
+
+    member.send("Zostałeś wyrzucony z serwera: " + guild.name + ".\nPowód: " + reason + "\nPrzez: <@" + author + ">")
+    member.kick(reason).then(kickedUser => {
+      channel.send("Użytkownik <@" + user + "> został wyrzucony.\nPowód: " + reason + "\nPrzez: <@" + author + ">")
+    })
+  }
+}
