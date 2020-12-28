@@ -4,6 +4,7 @@ module.exports = {
   name: "info",
   description: "Bot wypisuje informacje o sobie.",
   botPermissions: [ "EMBED_LINKS" ],
+  enabled: true,
 
   run(msg) {
     const { channel } = msg

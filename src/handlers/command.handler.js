@@ -9,7 +9,7 @@ module.exports = (client) => {
   client.commands = new Collection()
   const cooldowns = new Collection()
 
-  const commandFiles = readdirSync(__dirname + "/../commands").filter(file => file.endsWith("command.js"))
+  const commandFiles = readdirSync(__dirname + "/../commands").filter(file => file.endsWith(".js"))
 
   for (const file of commandFiles) {
     const command = require(__dirname + "/../commands/" + file)
@@ -26,6 +26,8 @@ module.exports = (client) => {
   console.log(table.toString())
 
   //client.on("messageUpdate", (oldMessage, newMessage) => {})
+
+  //client.on("messageReactionAdd", (reaction, user) => {})
 
   client.on("message", (msg) => {
     const { author, guild, member, channel } = msg
@@ -68,7 +70,7 @@ module.exports = (client) => {
     }
 
     if (cmd.args && !args.length) {
-      var reply = "Poprawne użycie komendy: " + prefix + cmdName
+      let reply = "Poprawne użycie komendy: " + prefix + cmdName
 
       if (cmd.usage) reply = reply + " " + cmd.usage
 

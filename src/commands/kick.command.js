@@ -8,9 +8,9 @@ module.exports = {
   guildOnly: true,
   botPermissions: [ "KICK_MEMBERS" ],
   userPermissions: [ "KICK_MEMBERS" ],
+  enabled: true,
 
-
-  run(msg, args) {
+  async run(msg, args) {
     const { channel, guild, author, mentions } = msg
 
     const user = mentions.users.first()
@@ -26,8 +26,8 @@ module.exports = {
 
     if (!member.kickable) return channel.send("Nie mam uprawnień do wyrzucenia tego użytkownika!")
 
-    member.send("Zostałeś wyrzucony z serwera: " + guild.name + ".\nPowód: " + reason + "\nPrzez: <@" + author + ">")
-    member.kick(reason).then(kickedUser => {
+    await member.send("Zostałeś wyrzucony z serwera \"" + guild.name + "\".\nPowód: " + reason + "\nPrzez: <@" + author + ">")
+    member.kick(reason).then(() => {
       channel.send("Użytkownik <@" + user + "> został wyrzucony.\nPowód: " + reason + "\nPrzez: <@" + author + ">")
     })
   }

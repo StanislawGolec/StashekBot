@@ -9,7 +9,7 @@ module.exports = {
   aliases: [ "clean", "cls", "clr" ],
   botPermissions: [ "MANAGE_MESSAGES" ],
   userPermissions: [ "MANAGE_MESSAGES" ],
-
+  enabled: true,
 
   run(msg, args) {
     const { channel } = msg

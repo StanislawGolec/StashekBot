@@ -7,6 +7,7 @@ module.exports = {
   args: true,
   usage: argsChar1 + "\"world\"/dany kraj (angielska nazwa)" + argsChar2,
   aliases: [ "covid", "covid19", "coviddata" ],
+  enabled: false,
 
   async run(msg, args) {
     const { channel, client: {axios} } = msg

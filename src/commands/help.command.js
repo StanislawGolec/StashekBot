@@ -4,6 +4,7 @@ module.exports = {
   name: "help",
   description: "Bot wypisuje listę komend lub informacje o danej z nich.",
   usage: argsChar3 + "nazwa komendy" + argsChar4,
+  enabled: true,
 
   run(msg, args) {
     const { commands } = msg.client
@@ -12,7 +13,7 @@ module.exports = {
 
     if (!args.length) {
       data.push("Lista wszystkich komend:")
-      data.push("-" + commands.map((command) => command.name).join(", \n -") + ".")
+      data.push("-" + commands.map((command) => command.name).join(",\n-") + ".")
       data.push("Użyj tej komendy w taki sposób - \"" + prefix + "help " + argsChar1 + "nazwa komendy" + argsChar2 + "\", aby dowiedzieć się więcej o danej komendzie.")
       data.push("W schemacie użycia danej komendy:")
       data.push("-na początku jest prefix (\"" + prefix + "\"),")
