@@ -4,6 +4,7 @@ const chalk = require("chalk")
 const { token } = require(__dirname + "/config/config.js")
 
 const commandHandler = require(__dirname + "/handlers/command.handler")
+const settingsHandler = require(__dirname + "/handlers/settings.handler")
 const coronaApiHandler = require(__dirname + "/handlers/coronaApi.handler")
 const eventHandler = require(__dirname + "/handlers/event.handler")
 
@@ -11,11 +12,23 @@ const client = new Client({ partials: [ "USER", "CHANNEL", "GUILD_MEMBER", "MESS
 var date = new Date()
 
 commandHandler(client)
+settingsHandler(client)
 coronaApiHandler(client)
 eventHandler(client)
 
 client.on("ready", () => {
   console.log(chalk.green("Zalogowano jako " + client.user.tag + "!"))
+  //client.settings.forEach((config, guildId) => {
+  //  const { guilds } = client
+  //
+  //  if (guilds.cache.has(guildId)) {
+  //    const guild = guilds.cache.get(guildId)
+  //
+  //    if (guild.available) {
+  //      CLOCK CHANNEL
+  //    }
+  //  }
+  //})
 })
 
 //function consoleLog(log, channel) {

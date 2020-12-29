@@ -3,13 +3,14 @@ const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
 
 module.exports = {
   name: "covid19data",
-  description: "Bot wysyła dane o Covid 19.",
-  args: true,
+  description: "Komenda wysyła dane o Covid 19.",
   usage: argsChar1 + "\"world\"/dany kraj (angielska nazwa)" + argsChar2,
-  aliases: [ "covid", "covid19", "coviddata" ],
+  args: true,
   enabled: false,
+  aliases: [ "covid", "covid19", "coviddata" ],
+  botPermissions: [ "SEND_MESSAGES" ],
 
-  async run(msg, args) {
+  run(msg, args) {
     const { channel, client: {axios} } = msg
     const arg = args[0]
     const title = "Covid 19 - dane"

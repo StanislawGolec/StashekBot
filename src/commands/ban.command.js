@@ -2,13 +2,13 @@ const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
 
 module.exports = {
   name: "ban",
-  description: "Bot banuję daną osobę.",
+  description: "Komenda banuje daną osobę.",
+  usage: argsChar1 + "użytkownik" + argsChar2 + " " + argsChar1 + "okres czasu, z którego wiadomości tego użytkownika mają zostać usunięte" + argsChar2 + " " + argsChar1 + "powód" + argsChar2,
   args: true,
-  usage: argsChar1 + "użytkownik" + argsChar2 + " " + argsChar1 + "okres czasu, z którego wiadomości tego użytkownika mają zostać usunięte  -  0-7 dni" + argsChar2 + " " + argsChar1 + "powód" + argsChar2,
   guildOnly: true,
-  botPermissions: [ "BAN_MEMBERS" ],
-  userPermissions: [ "BAN_MEMBERS" ],
   enabled: true,
+  botPermissions: [ "SEND_MESSAGES", "BAN_MEMBERS" ],
+  userPermissions: [ "BAN_MEMBERS" ],
 
   async run(msg, args) {
     const { channel, guild, author, mentions } = msg
@@ -19,7 +19,9 @@ module.exports = {
 
     if (!user) return channel.send("Musisz podać użytkownika do zbanowania!")
 
-    if (isNaN(days) || days < 0 || days > 7) return channel.send("Musisz podać okres czasu, z którego mam usunąć wiadomości podanego użytkownika (0-7 dni)!")
+    if (isNaN(days)) return channel.send("Musisz podać okres czasu, z którego mam usunąć wiadomości podanego użytkownika (0-7 dni)!")
+
+    if (days < 0 || days > 7) return channel.send("Okres czasu, z którego wiadomości podanego użytkownika mają zostać usuniętę musi mieścić się w przedziele 0-7 dni!")
 
     if (!reason) return channel.send("Musisz podać powód bana!")
 
@@ -31,7 +33,7 @@ module.exports = {
 
     if (!member.bannable) return channel.send("Nie mam uprawnień do zbanowania tego użytkownika!")
 
-    await member.send("Zostałeś zbanowany na serwerze \"" + guild.name + "\".\nOkres czasu, z którego twoje wiadomości zostały usunięte (w dniach): " + days + "\nPowód: " + reason + "\nPrzez: <@" + author + ">")
+    await member.send("Zostałeś zbanowany na serwerze \"" + guild.name + "\".\nOkres czasu, z którego twoje wiadomości zostały usunięte (w dniach): " + days + "\nPowód: " + reason + "\nPrzez: " + author.tag)
     member.ban({ days: days, reason: reason }).then(() => {
       channel.send("Użytkowni0k <@" + user.id + "> został zbanowany.\nOkres czasu, z którego wiadomości tego użytkownika zostały usunięte (w dniach): " + days + "\nPowód: " + reason + "\nPrzez: <@" + author + ">")
     })

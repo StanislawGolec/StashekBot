@@ -2,9 +2,9 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "info",
-  description: "Bot wypisuje informacje o sobie.",
-  botPermissions: [ "EMBED_LINKS" ],
-  enabled: true,
+  description: "Komenda wypisuje informacje o bocie.",
+  enabled: false,
+  botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
 
   run(msg) {
     const { channel } = msg

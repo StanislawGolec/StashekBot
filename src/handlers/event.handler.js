@@ -1,23 +1,31 @@
 //const { Collection } = require("discord.js")
-const { readdirSync } = require("fs")
+const { readdirSync, existsSync, mkdirSync } = require("fs")
 const chalk = require("chalk")
 const { Constants: { Events } } = require("discord.js")
 const events = Object.values(Events)
+const serverEventsPath = __dirname + "/../events/"
 //const ascii = require("ascii-table")
 //const { prefix, cooldownDefaultAmount } = require(__dirname + "/../config/config.js")
 
 //const table = new ascii().setHeading("Command", "Load status")
 
 module.exports = (client) => {
-  //client.commands = new Collection()
-  //const cooldowns = new Collection()
+  try {
+    if (!existsSync(serverEventsPath)) {
+      mkdirSync(serverEventsPath)
+      console.log(chalk.yellow("Folder \"events\" nie istnieje w \"" + __dirname + "\", więc właśnie został stworzony."))
+    }
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
 
-  const eventFiles = readdirSync(__dirname + "/../events").filter(file => file.endsWith(".js"))
+  const eventFiles = readdirSync(serverEventsPath).filter(file => file.endsWith(".js"))
 
   let eventsCount = 0
 
   for (const file of eventFiles) {
-    const event = require(__dirname + "/../events/" + file)
+    const event = require(serverEventsPath + file)
 
     //if (event.name) {
     //  client.events.set(event.name, event)

@@ -1,6 +1,6 @@
 module.exports = {
   name: "message",
-  enabled: true,
+  enabled: false,
 
   run(msg) {
     console.log("message event")

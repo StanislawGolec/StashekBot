@@ -1,7 +1,8 @@
 module.exports = {
   name: "ping",
-  description: "Bot odpisuje \"Pong!\".",
+  description: "Komenda powoduje, że bot odpisuje \"Pong!\".",
   enabled: true,
+  botPermissions: ["SEND_MESSAGES"],
 
   run(msg) {
     const { channel } = msg
