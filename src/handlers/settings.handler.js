@@ -12,9 +12,25 @@ module.exports = (client) => {
   try {
     for (const file of settingsFiles) {
       const settingsFile = readFileSync(__dirname + "/.." + serverConfigPath + "/" + file, "utf8")
+      const fileData = yaml.safeLoad(settingsFile)
 
-      const data = yaml.safeLoad(settingsFile)
       const guildId = file.split(".")[0]
+      const data = {
+        token: require(__dirname + "/../config/config.js").token,
+        prefix: fileData.prefix || require(__dirname + "/../config/config.js").prefix,
+        argsChar1: fileData.argsChar1 || require(__dirname + "/../config/config.js").argsChar1,
+        argsChar2: fileData.argsChar2 || require(__dirname + "/../config/config.js").argsChar2,
+        argsChar3: fileData.argsChar3 || require(__dirname + "/../config/config.js").argsChar3,
+        argsChar4: fileData.argsChar4 || require(__dirname + "/../config/config.js").argsChar4,
+        language: fileData.language || require(__dirname + "/../config/config.js").language,
+        cooldownDefaultAmount: fileData.cooldownDefaultAmount || require(__dirname + "/../config/config.js").cooldownDefaultAmount,
+        owner: require(__dirname + "/../config/config.js").owner,
+        coronaApi: require(__dirname + "/../config/config.js").coronaApi,
+        clockChannelsIds: fileData.clockChannelsIds || require(__dirname + "/../config/config.js").clockChannelsIds,
+        administrationChannelId: fileData.administrationChannelId || require(__dirname + "/../config/config.js").administrationChannelId,
+        welcomeChannelId: fileData.welcomeChannelId || require(__dirname + "/../config/config.js").welcomeChannelId,
+        farewellChannelId: fileData.farewellChannelId || require(__dirname + "/../config/config.js").farewellChannelId
+      }
 
       client.settings.set(guildId, data)
     }
@@ -24,12 +40,28 @@ module.exports = (client) => {
 
   client.saveConfig = (guildId) => {
     if (client.settings.has(guildId)) {
-      const config = client.settings.get(guildId)
+      //const config = client.settings.get(guildId)
 
       try {
-        const yamlStr = yaml.safeDump(config)
+        //const yamlStr = yaml.safeDump(client.settings.get(guildId))
 
-        writeFileSync(__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml", yamlStr, "utf8")
+        const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, language, cooldownDefaultAmount, clockChannelsIds, administrationChannelId, welcomeChannelId, farewellChannelId } = client.settings.get(guildId)
+
+        const data = {
+          prefix: prefix,
+          argsChar1: argsChar1,
+          argsChar2: argsChar2,
+          argsChar3: argsChar3,
+          argsChar4: argsChar4,
+          language: language,
+          cooldownDefaultAmount: cooldownDefaultAmount,
+          clockChannelsIds: clockChannelsIds,
+          administrationChannelId: administrationChannelId,
+          welcomeChannelId: welcomeChannelId,
+          farewellChannelId: farewellChannelId
+        }
+
+        writeFileSync(__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml", yaml.safeDump(data), "utf8")
       } catch (error) {
         console.log(error)
       }

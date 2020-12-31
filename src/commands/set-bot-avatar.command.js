@@ -1,9 +1,8 @@
-const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
-
 module.exports = {
   name: "set-bot-avatar",
   description: "Komenda ustawia avatar bota.",
-  usage: argsChar1 + "URL/ścieżka do pliku lokalnego" + argsChar2,
+  usage: [ "URL/ścieżka do pliku lokalnego" ],
+  usageChars: "1",
   args: true,
   ownerOnly: true,
   enabled: true,

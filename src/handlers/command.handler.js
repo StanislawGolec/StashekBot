@@ -2,10 +2,9 @@ const { Collection } = require("discord.js")
 const chalk = require("chalk")
 const { readdirSync, existsSync, mkdirSync } = require("fs")
 const ascii = require("ascii-table")
-const { cooldownDefaultAmount, owner } = require(__dirname + "/../config/config.js")
-let { prefix } = require(__dirname + "/../config/config.js")
+let prefix = ""
 const serverCommandsPath = __dirname + "/../commands/"
-const table = new ascii().setHeading("Command", "Load status")
+const table = new ascii().setHeading("Command", "Load status", "Enabled")
 
 module.exports = (client) => {
   try {
@@ -26,13 +25,19 @@ module.exports = (client) => {
   for (const file of commandFiles) {
     const command = require(serverCommandsPath + file)
 
+    let loadStatus = "Bad"
+    let enabled = "False"
+
     if (command.name) {
       client.commands.set(command.name, command)
-      table.addRow(file, "Good")
-    } else {
-      table.addRow(file, "Bad")
-      continue
+      loadStatus = "Good"
     }
+
+    if (command.enabled) {
+      enabled = "True"
+    }
+
+    table.addRow(file, loadStatus, enabled)
   }
 
   console.log(table.toString())
@@ -43,16 +48,23 @@ module.exports = (client) => {
 
   client.on("message", (msg) => {
     const { author, guild, member, channel } = msg
+    const { argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = guild ? client.settings.get(guild.id) : require(__dirname + "/../config/config.js")
 
     if (author.bot) return
 
-    const { settings } = client
+    if (guild) {
+      const { settings } = client
 
-    if (!settings.get(guild.id)) {
-      settings.set(guild.id, { clockChannels: [], administrationChannels: [], prefix: prefix })
+      if (!settings.get(guild.id)) {
+        settings.set(guild.id, { prefix: null, argsChar1: null, argsChar2: null, argsChar3: null, argsChar4: null, language: null, cooldownDefaultAmount: null, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null })
+      }
+
+      prefix =
+        settings.get(guild.id).prefix ||
+        require(__dirname + "/../config/config.js").prefix
+    } else {
+      prefix = require(__dirname + "/../config/config.js").prefix
     }
-
-    prefix = settings.get(guild.id).prefix
 
     if (!msg.content.startsWith(prefix)) return
 
@@ -64,10 +76,11 @@ module.exports = (client) => {
     const cmdName = args.shift().toLowerCase()
 
 
-    const cmd = client.commands.get(cmdName) ||
-    client.commands.find(
-      (cmd) => cmd.aliases && cmd.aliases.includes(cmdName),
-    )
+    const cmd =
+      client.commands.get(cmdName) ||
+      client.commands.find(
+        (cmd) => cmd.aliases && cmd.aliases.includes(cmdName)
+      )
 
     if (!cmd) return channel.send("Nie znaleziono takiej komendy! Napisz " + prefix + "help, aby wyświelić listę wszystkich istniejących komend.")
 
@@ -116,11 +129,24 @@ module.exports = (client) => {
     }
 
     if (cmd.args && !args.length) {
-      let reply = "Poprawne użycie komendy: " + prefix + cmdName
+      if (cmd.usage) {
+        let reply = "Poprawne użycie komendy: " + prefix + cmdName
 
-      if (cmd.usage) reply = reply + " " + cmd.usage
+        let usage = ""
+        for (var i = 0; i < cmd.usageChars.length; i++) {
+          if (cmd.usageChars[i] = "1") {
+            usage = usage + " " + argsChar1 + cmd.usage[i] + argsChar2
+          } else if (cmd.usageChars[i] = "2") {
+            usage = usage + " " + argsChar3 + cmd.usage[i] + argsChar4
+          }
+        }
+        reply = reply + usage
 
-      return msg.channel.send(reply)
+
+        return channel.send(reply)
+      }
+
+      return channel.send("Komenda wymaga argumentów. Jednak nie udało mi się znaleźć schematu poprawnego użycia.")
     }
 
     if(!cooldowns.has(cmdName)) {

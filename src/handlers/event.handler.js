@@ -1,13 +1,11 @@
-//const { Collection } = require("discord.js")
+const { Collection } = require("discord.js")
 const { readdirSync, existsSync, mkdirSync } = require("fs")
 const chalk = require("chalk")
 const { Constants: { Events } } = require("discord.js")
 const events = Object.values(Events)
 const serverEventsPath = __dirname + "/../events/"
-//const ascii = require("ascii-table")
-//const { prefix, cooldownDefaultAmount } = require(__dirname + "/../config/config.js")
-
-//const table = new ascii().setHeading("Command", "Load status")
+const ascii = require("ascii-table")
+const table = new ascii().setHeading("Event", "Load status", "Enabled")
 
 module.exports = (client) => {
   try {
@@ -20,33 +18,39 @@ module.exports = (client) => {
     process.exit(1)
   }
 
-  const eventFiles = readdirSync(serverEventsPath).filter(file => file.endsWith(".js"))
+  client.events = new Collection()
 
-  let eventsCount = 0
+  const eventFiles = readdirSync(serverEventsPath).filter(file => file.endsWith(".js"))
 
   for (const file of eventFiles) {
     const event = require(serverEventsPath + file)
 
-    //if (event.name) {
-    //  client.events.set(event.name, event)
-    //  table.addRow(file, "Good")
-    //} else {
-    //  table.addRow(file, "Bad")
-    //  continue
-    //}
+    let loadStatus = "Bad"
+    let enabled = "False"
+
+    if (events.includes(event.event)) {
+      client.events.set(event.name, event)
+      loadStatus = "Good"
+    }
+
+    if (event.enabled) {
+      enabled = "True"
+    }
+
+    table.addRow(file, loadStatus, enabled)
 
     if (typeof event.enabled == "boolean" && event.enabled == false) continue
 
-    if (!event.name) {
-      console.log(chalk.redBright("Nie znaleziono zmiennej \"name\" w \"" + file + "\"!"))
+    if (!event.event) {
+      console.log(chalk.redBright("Nie znaleziono zmiennej \"event\" w \"" + file + "\"!"))
       process.exit(1)
-    } else if (typeof event.name != "string") {
-      console.log(chalk.redBright("\"name\" w \"" + file + "\" musi być zmienną typu \"string\"!"))
+    } else if (typeof event.event != "string") {
+      console.log(chalk.redBright("\"event\" w \"" + file + "\" musi być zmienną typu \"string\"!"))
       process.exit(1)
     }
 
-    if (!events.includes(event.name)) {
-      console.log(chalk.redBright("\"name\" w \"" + file + "\" musi zawierać istniejącą nazwę wydarzenia!"))
+    if (!events.includes(event.event)) {
+      console.log(chalk.redBright("\"event\" w \"" + file + "\" musi zawierać nazwę istniejącą wydarzenia!"))
       process.exit(1)
     }
 
@@ -59,15 +63,14 @@ module.exports = (client) => {
     }
 
     try {
-      client.on(event.name, event.run)
-      eventsCount++
+      client.on(event.event, event.run)
     } catch (error) {
       console.log(error)
     }
 
   }
 
-  console.log(chalk.blueBright("Ilość wykrytych wydarzeń: " + eventsCount))
-
-  //console.log(table.toString())
+  console.log()
+  console.log(table.toString())
+  console.log()
 }

@@ -3,7 +3,8 @@ const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
 module.exports = {
   name: "set-bot-username",
   description: "Komenda ustawia nick bota, może być używana tylko dwa razy w ciągu godziny!",
-  usage: argsChar1 + "nowy nick" + argsChar2,
+  usage: [ "nowy nick" ],
+  usageChars: "1",
   args: true,
   ownerOnly: true,
   enabled: true,

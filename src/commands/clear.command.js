@@ -1,9 +1,8 @@
-const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
-
 module.exports = {
   name: "clear",
   description: "Komenda usuwa daną ilość ostatnich wiadomości na konkretnym kanale. Pod warunkiem, że zostały napisane mniej niż 14 dni temu!",
-  usage: argsChar1 + "liczba" + argsChar2,
+  usage: [ "liczba" ],
+  usageChars: "1",
   args: true,
   guildOnly: true,
   enabled: true,

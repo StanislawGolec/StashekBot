@@ -1,9 +1,8 @@
-const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
-
 module.exports = {
   name: "kick",
   description: "Komenda wyrzuca daną osobę z serwera.",
-  usage: argsChar1 + "użytkownik" + argsChar2 + " " + argsChar1 + "powód" + argsChar2,
+  usage: [ "użytkownik", "powód" ],
+  usageChars: "11",
   args: true,
   guildOnly: true,
   enabled: true,
@@ -11,7 +10,7 @@ module.exports = {
   userPermissions: [ "KICK_MEMBERS" ],
 
   async run(msg, args) {
-    const { channel, guild, author, mentions } = msg
+    const { channel, guild, author, mention } = msg
 
     const user = mentions.users.first()
     const reason = [...args].slice(1).join(" ")

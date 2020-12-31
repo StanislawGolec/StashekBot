@@ -1,9 +1,8 @@
-const { prefix, argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
-
 module.exports = {
   name: "set-guild-prefix",
   description: "Komenda ustawia prefix danego serwera.",
-  usage: argsChar1 + "nowy prefix" + argsChar2,
+  usage: [ "nowy prefix" ],
+  usageChars: "1",
   args: true,
   guildOnly: true,
   enabled: true,
@@ -15,14 +14,17 @@ module.exports = {
     const { channel, guild, client } = msg
     const { settings } = client
 
+    const { prefix } = guild ? client.settings.get(guild.id) : require(__dirname + "/../config/config.js")
+
+
     if (!settings.get(guild.id)) {
-      settings.set(guild.id, { clockChannels: [], administrationChannels: [], prefix: prefix })
+      settings.set(guild.id, { prefix: null, argsChar1: null, argsChar2: null, argsChar3: null, argsChar4: null, language: null, cooldownDefaultAmount: null, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null })
     }
 
     const newPrefix = args[0]
 
-    if (newPrefix != client.settings.get(guild.id).prefix) {
-      client.settings.get(guild.id).prefix = newPrefix
+    if (newPrefix != settings.get(guild.id).prefix) {
+      settings.get(guild.id).prefix = newPrefix
       client.saveConfig(guild.id)
 
       channel.send("Prefix został zmieniony na \"" + newPrefix + "\".")

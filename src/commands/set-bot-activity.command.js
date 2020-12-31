@@ -1,17 +1,17 @@
-const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
 const activityTypes = [ "PLAYING", "STREAMING", "LISTENING", "WATCHING", "CUSTOM_STATUS", "COMPETING" ]
 
 module.exports = {
   name: "set-bot-activity",
   description: "Komenda ustawia aktywność bota.",
-  usage: argsChar1 + "typ aktywności" + argsChar2 + " " + argsChar1 + "aktywność" + argsChar2,
+  usage: [ "typ aktywności", "aktywność" ],
+  usageChars: "11",
   args: true,
   ownerOnly: true,
   enabled: true,
   aliases: [ "bot-activity", "bot-status" ],
 
   run(msg, args) {
-    const { client } = msg
+    const { client, channel } = msg
 
     let type = ""
     let name = ""

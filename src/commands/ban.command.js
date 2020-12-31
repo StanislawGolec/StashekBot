@@ -1,9 +1,8 @@
-const { argsChar1, argsChar2 } = require(__dirname + "/../config/config.js")
-
 module.exports = {
   name: "ban",
   description: "Komenda banuje daną osobę.",
-  usage: argsChar1 + "użytkownik" + argsChar2 + " " + argsChar1 + "okres czasu, z którego wiadomości tego użytkownika mają zostać usunięte" + argsChar2 + " " + argsChar1 + "powód" + argsChar2,
+  usage: [ "użytkownik", "okres czasu, z którego wiadomości tego użytkownika mają zostać usunięte", "powód"],
+  usageChars: "111",
   args: true,
   guildOnly: true,
   enabled: true,

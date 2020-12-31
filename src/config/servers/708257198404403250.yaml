@@ -1,3 +1,11 @@
-clockChannels: []
-administrationChannels: []
-prefix: /
+prefix: null
+argsChar1: null
+argsChar2: null
+argsChar3: null
+argsChar4: null
+language: null
+cooldownDefaultAmount: null
+clockChannelsIds: null
+administrationChannelId: null
+welcomeChannelId: null
+farewellChannelId: null

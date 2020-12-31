@@ -1,15 +1,15 @@
-const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = require(__dirname + "/../config/config.js")
-
 module.exports = {
   name: "help",
   description: "Komenda wypisuje listę komend lub informacje o danej z nich.",
-  usage: argsChar3 + "nazwa komendy" + argsChar4,
+  usage: [ "nazwa komendy" ],
+  usageChars: "2",
   enabled: true,
   botPermissions: [ "SEND_MESSAGES" ],
 
   run(msg, args) {
-    const { commands } = msg.client
-    const { author, guild, channel } = msg
+    const { author, guild, channel, client } = msg
+    const { commands } = client
+    const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = guild ? client.settings.get(guild.id) : require(__dirname + "/../config/config.js")
 
     const data = []
 
@@ -58,6 +58,19 @@ module.exports = {
           data.push("**Nazwa**: " + command.name + ".")
           if (command.aliases) data.push("**Synonimy**: " + command.aliases.join(", ") + ".")
           if (command.description) data.push("**Opis**: " + command.description)
+
+          if (cmd.usage) {
+            let usage = ""
+            for (var i = 0; i < cmd.usageChars.length; i++) {
+              if (cmd.usageChars[i] = "1") {
+                usage = usage + " " + argsChar1 + cmd.usage[i] + argsChar2
+              } else if (cmd.usageChars[i] = "2") {
+                usage = usage + " " + argsChar3 + cmd.usage[i] + argsChar4
+              }
+            }
+            data.push("**Poprawne użycie komendy**: " + prefix + command.name + usage + ".")
+          }
+
           if (command.usage) data.push("**Poprawne użycie komendy**: " + prefix + command.name + " " + command.usage + ".")
           if (command.cooldown) data.push("**Cooldown**: " + command.cooldown + ".")
           if (cooldownDefaultAmount > 0) data.push("**Cooldown**: " + cooldownDefaultAmount + ".")
