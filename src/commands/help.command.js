@@ -9,7 +9,7 @@ module.exports = {
   run(msg, args) {
     const { author, guild, channel, client } = msg
     const { commands } = client
-    const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = guild ? client.settings.get(guild.id) : require(__dirname + "/../config/config.js")
+    const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = client.configVariables(client, guild)
 
     const data = []
 

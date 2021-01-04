@@ -18,7 +18,8 @@ eventHandler(client)
 
 client.on("ready", () => {
   console.log(chalk.green("Zalogowano jako " + client.user.tag + "!\n"))
-  //client.emit("guildMemberAdd", client.guilds.cache.get("708257198404403250").members.cache.get("459746387811106827"))
+  //client.emit("guildMemberAdd", client.guilds.cache.get("708257198404403250").members.cache.get("745256034855288862"))
+
   //client.settings.forEach((config, guildId) => {
   //  const { guilds } = client
   //

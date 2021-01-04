@@ -10,15 +10,11 @@ module.exports = {
   run(msg, args) {
     const { channel, guild, client } = msg
     const { settings } = client
-    if (guild) {
-      const { prefix } = client.settings.get(guild.id)
-    } else {
-      const { prefix} = require(__dirname + "/../config/config.js")
-    }
 
+    const { prefix } = client.configVariables(client, guild)
 
     if (!settings.get(guild.id)) {
-      settings.set(guild.id, { prefix: null, argsChar1: null, argsChar2: null, argsChar3: null, argsChar4: null, language: null, cooldownDefaultAmount: null, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null })
+      settings.set(guild.id, { prefix: false, argsChar1: false, argsChar2: false, argsChar3: false, argsChar4: false, language: false, cooldownDefaultAmount: false, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null, autorole: null, autopin: [ {}, [] ] })
     }
 
     settings.get(guild.id).prefix = null

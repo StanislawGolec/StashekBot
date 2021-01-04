@@ -10,7 +10,7 @@ module.exports = {
   userPermissions: [ "KICK_MEMBERS" ],
 
   async run(msg, args) {
-    const { channel, guild, author, mention } = msg
+    const { channel, guild, author, mentions } = msg
 
     const user = mentions.users.first()
     const reason = [...args].slice(1).join(" ")

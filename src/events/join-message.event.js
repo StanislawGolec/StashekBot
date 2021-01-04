@@ -3,13 +3,23 @@ module.exports = {
   event: "guildMemberAdd",
   enabled: false,
 
-  run(member) {
-    const { client, guild } = member
-    if (client.settings.get(guild.id).welcomeChannelId) {
-      const { welcomeChannelId } = client.settings.get(guild.id)
-      const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId)
-
-      welcomeChannel.send("<@" + member.user.id + "> właśnie dołączył do tego serwera!")
+  async run(member) {
+    console.log("1")
+    if (member) {
+      console.log("2")
+      if (member.partial) await member.fetch()
+      console.log("2.5")
+      const { client, guild } = member
+      console.log("3")
+      if (client.configVariables(client, guild).welcomeChannelId) {
+        const { welcomeChannelId } = client.configVariables(client, guild)
+        console.log("4")
+        const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId)
+        console.log("5")
+        welcomeChannel.send("<@" + member.user.id + "> właśnie dołączył do tego serwera.")
+        console.log("6")
+      } else console.log(":(")
     }
+    console.log("7")
   }
 }

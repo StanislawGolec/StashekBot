@@ -47,24 +47,13 @@ module.exports = (client) => {
   //client.on("messageReactionAdd", (reaction, user) => {})
 
   client.on("message", (msg) => {
-    const { author, guild, member, channel } = msg
-    const { argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = guild ? client.settings.get(guild.id) : require(__dirname + "/../config/config.js")
+    const { author, guild, member, channel, client } = msg
 
+    const { settings } = client
+
+    const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner, disabledCommands } = client.configVariables(client, guild)
+    
     if (author.bot) return
-
-    if (guild) {
-      const { settings } = client
-
-      if (!settings.get(guild.id)) {
-        settings.set(guild.id, { prefix: null, argsChar1: null, argsChar2: null, argsChar3: null, argsChar4: null, language: null, cooldownDefaultAmount: null, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null })
-      }
-
-      prefix =
-        settings.get(guild.id).prefix ||
-        require(__dirname + "/../config/config.js").prefix
-    } else {
-      prefix = require(__dirname + "/../config/config.js").prefix
-    }
 
     if (!msg.content.startsWith(prefix)) return
 
@@ -74,7 +63,6 @@ module.exports = (client) => {
       .split(" ")
 
     const cmdName = args.shift().toLowerCase()
-
 
     const cmd =
       client.commands.get(cmdName) ||
@@ -88,6 +76,10 @@ module.exports = (client) => {
       channel.send("Komenda jest aktualnie wyłączona przez twórcę bota!")
       if (author.id == owner) author.send("**Możesz użyć komendy \"" + cmd.name + "\" pisząc jako właściciel bota w wiadomości prywatnej, gdy komenda jest wyłączona!**")
       return
+    }
+
+    if (guild && disabledCommands && disabledCommands.includes(cmd.name)) {
+      return channel.send("Ta komenda jest wyłączona ta tym serwerze!")
     }
 
     if (cmd.ownerOnly) {

@@ -7,11 +7,17 @@ const serverEventsPath = __dirname + "/../events/"
 const ascii = require("ascii-table")
 const table = new ascii().setHeading("Event", "Load status", "Enabled")
 
+// DO ZROBIENIA
+// ADMINISTRATION CHANNEL ONLY - COMMANDS, EVENTS
+// OWNER, GUILD, DM ONLY - EVENTS
+//
+// JEŚLI BRAKUJE ZMIENNYCH W CONFIGU DANEGO SERWERA DODAJ JE
+
 module.exports = (client) => {
   try {
     if (!existsSync(serverEventsPath)) {
+      console.log(chalk.yellow("Folder \"events\" nie istnieje w \"" + __dirname + "\", więc właśnie zaraz go stworzę."))
       mkdirSync(serverEventsPath)
-      console.log(chalk.yellow("Folder \"events\" nie istnieje w \"" + __dirname + "\", więc właśnie został stworzony."))
     }
   } catch (error) {
     console.log(error)
@@ -67,7 +73,6 @@ module.exports = (client) => {
     } catch (error) {
       console.log(error)
     }
-
   }
 
   console.log()

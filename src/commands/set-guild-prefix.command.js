@@ -14,22 +14,21 @@ module.exports = {
     const { channel, guild, client } = msg
     const { settings } = client
 
-    const { prefix } = guild ? client.settings.get(guild.id) : require(__dirname + "/../config/config.js")
-
+    const { prefix } = client.configVariables(client, guild)
 
     if (!settings.get(guild.id)) {
-      settings.set(guild.id, { prefix: null, argsChar1: null, argsChar2: null, argsChar3: null, argsChar4: null, language: null, cooldownDefaultAmount: null, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null })
+      settings.set(guild.id, { prefix: false, argsChar1: false, argsChar2: false, argsChar3: false, argsChar4: false, language: false, cooldownDefaultAmount: false, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null, autorole: null, autopin: [] })
+      client.saveConfig(guild.id)
     }
 
     const newPrefix = args[0]
 
     if (newPrefix != settings.get(guild.id).prefix) {
       settings.get(guild.id).prefix = newPrefix
-      client.saveConfig(guild.id)
-
       channel.send("Prefix został zmieniony na \"" + newPrefix + "\".")
     } else {
       channel.send("Prefix jest już ustawiony na \"" + newPrefix + "\".")
     }
+    client.saveConfig(guild.id)
   }
 }
