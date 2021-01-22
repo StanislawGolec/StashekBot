@@ -71,7 +71,6 @@ module.exports = {
             data.push("**Poprawne użycie komendy**: " + prefix + command.name + usage + ".")
           }
 
-          if (command.usage) data.push("**Poprawne użycie komendy**: " + prefix + command.name + " " + command.usage + ".")
           if (command.cooldown) data.push("**Cooldown**: " + command.cooldown + ".")
           if (cooldownDefaultAmount > 0) data.push("**Cooldown**: " + cooldownDefaultAmount + ".")
           if (command.ownerOnly || command.dmOnly) {

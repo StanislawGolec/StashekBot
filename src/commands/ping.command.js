@@ -5,7 +5,7 @@ module.exports = {
   botPermissions: ["SEND_MESSAGES"],
 
   run(msg) {
-    const { channel, member, client, guild } = msg
+    const { channel } = msg
     channel.send("Pong!")
   }
 }
