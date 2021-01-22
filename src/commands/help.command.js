@@ -59,13 +59,13 @@ module.exports = {
           if (command.aliases) data.push("**Synonimy**: " + command.aliases.join(", ") + ".")
           if (command.description) data.push("**Opis**: " + command.description)
 
-          if (cmd.usage) {
+          if (command.usage) {
             let usage = ""
-            for (var i = 0; i < cmd.usageChars.length; i++) {
-              if (cmd.usageChars[i] = "1") {
-                usage = usage + " " + argsChar1 + cmd.usage[i] + argsChar2
-              } else if (cmd.usageChars[i] = "2") {
-                usage = usage + " " + argsChar3 + cmd.usage[i] + argsChar4
+            for (var i = 0; i < command.usageChars.length; i++) {
+              if (command.usageChars[i] = "1") {
+                usage = usage + " " + argsChar1 + command.usage[i] + argsChar2
+              } else if (command.usageChars[i] = "2") {
+                usage = usage + " " + argsChar3 + command.usage[i] + argsChar4
               }
             }
             data.push("**Poprawne użycie komendy**: " + prefix + command.name + usage + ".")
