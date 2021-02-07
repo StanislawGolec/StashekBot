@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js")
-const { readdirSync, readFileSync, writeFileSync, mkdirSync } = require("fs")
+const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
 
 const serverConfigPath = "/config/servers/"
