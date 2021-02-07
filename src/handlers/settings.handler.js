@@ -1,11 +1,21 @@
 const { Collection } = require("discord.js")
-const { readdirSync, readFileSync, writeFileSync } = require("fs")
+const { readdirSync, readFileSync, writeFileSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
 
 const serverConfigPath = "/config/servers/"
 
 module.exports = (client) => {
   client.settings = new Collection()
+
+  try {
+    if (!existsSync(serverConfigPath)) {
+      mkdirSync(serverConfigPath)
+      console.log(chalk.yellow("Folder \"servers\" nie istnieje w \"" + __dirname + "\", więc właśnie został stworzony."))
+    }
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
 
   const settingsFiles = readdirSync(__dirname + "/.." + serverConfigPath).filter(file => file.endsWith(".yaml"))
 
