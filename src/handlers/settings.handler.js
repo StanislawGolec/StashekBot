@@ -9,7 +9,7 @@ module.exports = (client) => {
 
   try {
     if (!existsSync(serverConfigPath)) {
-      mkdirSync(serverConfigPath)
+      mkdirSync(__dirname + serverConfigPath)
       console.log(chalk.yellow("Folder \"servers\" nie istnieje w \"" + __dirname + "\", więc właśnie został stworzony."))
     }
   } catch (error) {
