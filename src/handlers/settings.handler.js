@@ -1,4 +1,5 @@
 const { Collection } = require("discord.js")
+const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
 
