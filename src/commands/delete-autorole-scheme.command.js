@@ -1,11 +1,12 @@
 module.exports = {
   name: "delete-autorole-scheme",
-  description: "Komenda usuwa dany schemat autopinu.",
-  usage: [ "numer schematu autopinu" ],
+  description: "Komenda usuwa dany schemat autorole'i.",
+  usage: [ "numer schematu autorole'i" ],
   usageChars: "1",
   args: true,
   guildOnly: true,
   enabled: false,
+  aliases: [ "delete-autorole", "dar" ],
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
@@ -13,19 +14,19 @@ module.exports = {
     const { channel, guild, client, mentions } = msg
     const { settings } = client
 
-    const { prefix, autopin } = client.configVariables(client, guild)
+    const { prefix, autorole } = client.configVariables(client, guild)
 
     number = args[0]
 
-    if (!autopin.length) return channel.send("Nie ustawiono jeszcze żadnego schematu autopinu! Napisz " + prefix + "set-autopin-scheme, aby to zmienić.")
+    if (!autorole.length) return channel.send("Nie ustawiono jeszcze żadnego schematu autorole'i! Napisz " + prefix + "set-autorole-scheme, aby to zmienić.")
 
-    if (number > 0 && number <= autopin.length)
+    if (number > 0 && number <= autorole.length)
     {
-      autopin.splice(number - 1, 1)
+      autorole.splice(number - 1, 1)
       client.saveConfig(guild.id)
-      channel.send("Usunięto ten schemat autopinu.")
+      channel.send("Usunięto ten schemat autorole'i.")
     } else {
-      channel.send("Nie znaleziono schematu autopinu o takim numerze! Napisz " + prefix + "autopin-schemes, aby zobaczyć ustawione schematy autopinów.")
+      channel.send("Nie znaleziono schematu autorole'i o takim numerze! Napisz " + prefix + "autorole-schemes, aby zobaczyć ustawione schematy autorole'i.")
     }
   }
 }

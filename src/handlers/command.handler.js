@@ -52,7 +52,7 @@ module.exports = (client) => {
     const { settings } = client
 
     const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner, disabledCommands } = client.configVariables(client, guild)
-    
+
     if (author.bot) return
 
     if (!msg.content.startsWith(prefix)) return
@@ -74,7 +74,7 @@ module.exports = (client) => {
 
     if ((!cmd.enabled && author.id != owner) || (!cmd.enabled && author.id == owner && guild)) {
       channel.send("Komenda jest aktualnie wyłączona przez twórcę bota!")
-      if (author.id == owner) author.send("**Możesz użyć komendy \"" + cmd.name + "\" pisząc jako właściciel bota w wiadomości prywatnej, gdy komenda jest wyłączona!**")
+      if (author.id == owner && !cmd.guildOnly) author.send("**Możesz użyć komendy \"" + cmd.name + "\" pisząc jako właściciel bota w wiadomości prywatnej, gdy komenda jest wyłączona!**")
       return
     }
 

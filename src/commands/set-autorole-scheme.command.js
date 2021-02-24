@@ -2,12 +2,12 @@ module.exports = {
   name: "set-autorole-scheme",
   description: "Komenda ustawia nowy schemat autorole'a.",
   usage: [ "id wiadomości", "reakcja", "wzmianka roli" ],
-  // "czy cofnąć przypięcie po cofnięciu reakcji (\"true\"/\"false\")"
+  // "czy cofnąć danie roli po cofnięciu reakcji (\"true\"/\"false\")"
   usageChars: "111",
-  // 1
   args: true,
   guildOnly: true,
   enabled: false,
+  aliases: [ "set-autorole", "sar" ],
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
@@ -16,86 +16,42 @@ module.exports = {
     const { settings } = client
 
     if (!settings.get(guild.id)) {
-      settings.set(guild.id, { prefix: false, argsChar1: false, argsChar2: false, argsChar3: false, argsChar4: false, language: false, cooldownDefaultAmount: false, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null, autorole: null, autopin: [] })
+      settings.set(guild.id, { prefix: false, argsChar1: false, argsChar2: false, argsChar3: false, argsChar4: false, language: false, cooldownDefaultAmount: false, clockChannelsIds: null, administrationChannelId: null, welcomeChannelId: null, farewellChannelId: null, autorole: [], autopin: [] })
       client.saveConfig(guild.id)
     }
 
-    const channelMention = mentions.channels.first()
-    const channelOption = args[0]
+    const messageId = args[0]
+    if (!messageId) return channel.send("Musisz podać id wiadomości!")
 
-    let place = ""
-
-    if (channelOption == "all") place = "all"
-    else {
-      if (!channelMention) {
-        return channel.send("Musisz wspomnieć jakiś kanał!")
-      }
-
-      if (!guild.channels.cache.get(channelMention.id)) {
-        return channel.send("Nie znaleziono wspomnianego kanału na tym serwerze!")
-      }
-      place = channelMention.id
-    }
-
-    let reaction = args[1]
-    const count = args[2]
-    let required = args[3]
-  //  const unpin = args[4]
-
+    const reaction = args[1]
     if (!reaction) return channel.send("Musisz podać reakcję (pamiętaj o jednej spacji przed reakcją)!")
 
-    if (!count) return channel.send("Musisz podać wymaganą liczbę reakcji!")
+    const roleMention = mentions.roles.first()
+    if (!roleMention) return channel.send("Musisz wspomnieć jakąś rolę!")
 
-    if (count < 1) return channel.send("Musisz podać poprawną wymaganą liczbę reakcji!")
-
-    if (!required || !requireOptions.includes(required)) return channel.send("Musisz podać co musi zawierać (\"noting-special\"/\"image-or-gif\")!")
-
-    //required = required.toLowerCase().split("/")
-
-    //let good = false
-
-    //for (let requireOption of required) {
-    //  if (requireOptions.includes(requireOption)) good = true
-  //    else if (good == true) {
-    //    good = false
-    //    break
-  //    }
-  //  }
-
-  //  if (!good) return channel.send("Musisz podać poprawny typ lub typy jakie musi mieć (\"noting-special\"/\"image-or-gif\")!")
-
-  //  if (!unpin || (unpin != "true" && unpin != "false")) return channel.send("Musisz podać czy należy cofnąć przypięcie po cofnięciu reakcji (\"true\"/\"false\")!")
-
-    const { autopin } = client.configVariables(client, guild)
+    const { autorole } = client.configVariables(client, guild)
 
     let push = true
     let length = false
 
-    if (autopin.length) {
+    if (autorole.length) {
       length = true
-      for (let i = 0; i < autopin.length; i++) {
-        if (place == "all") {
-          if (autopin.length == 1 && autopin[i][0] == "all") {
-            autopin[i] = [ place, reaction, count, required ]
-            channel.send("Zaktualizowano schemat autopinu na całym serwerze.")
-          } else return channel.send("Żeby ustawić autopin na całym serwerze musisz najpierw usunąć wszystkie schematy autopinów działające na danym kanale!")
-        } else {
-          if (autopin[i][0] == place) {
+      for (let i = 0; i < autorole.length; i++) {
+        if (autorole[i][0] == messageId && autorole[i][1] == reaction) {
             push = false
-            autopin[i] = [ place, reaction, count, required ]
-            channel.send("Zaktualizowano schemat autopinu na wspomnianym kanale.")
+            autorole[i] = [ messageId, reaction, roleMention.id ]
+            channel.send("Zaktualizowano schemat autorole'i.")
             break
-          }
         }
       }
     } else {
-      autopin.push([ place, reaction, count, required ])
-      channel.send("Dodano nowy schemat autopinu.")
+      autorole.push([ messageId, reaction, roleMention.id ])
+      channel.send("Dodano nowy schemat autorole'i.")
     }
 
-    if (length && place != "all" && push) {
-      autopin.push([ place, reaction, count, required ])
-      channel.send("Dodano nowy schemat autopinu.")
+    if (length && push) {
+      autorole.push([ messageId, reaction, roleMention.id ])
+      channel.send("Dodano nowy schemat autorole'i.")
     }
 
     client.saveConfig(guild.id)

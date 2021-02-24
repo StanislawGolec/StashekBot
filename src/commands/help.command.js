@@ -20,6 +20,7 @@ module.exports = {
         let commandList = []
         for (let command of commands.map((command) => command)) {
           if (command.ownerOnly) continue
+          if (!command.enabled) continue
           commandList.push(command.name)
         }
         data.push("-" + commandList.map((commandName) => commandName).join(",\n-") + ".")
@@ -54,6 +55,9 @@ module.exports = {
           if (author.id == owner) {
             author.send("**\"" + prefix + "help " + command.name + "\" działa tylko w prywatnych wiadomościach, ponieważ \"" + command.name + "\" jest to komenda, którą może używać tylko właściciel bota!**")
           }
+        } else if (!command.enabled) {
+          data.push("Komenda jest aktualnie wyłączona przez twórcę bota!")
+          if (author.id == owner && !command.guildOnly) author.send("**Możesz użyć komendy \"" + command.name + "\" pisząc jako właściciel bota w wiadomości prywatnej, gdy komenda jest wyłączona!**")
         } else {
           data.push("**Nazwa**: " + command.name + ".")
           if (command.aliases) data.push("**Synonimy**: " + command.aliases.join(", ") + ".")

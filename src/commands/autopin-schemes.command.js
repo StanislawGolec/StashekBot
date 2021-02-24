@@ -3,6 +3,7 @@ module.exports = {
   description: "Komenda wyświetla ustawione schematy autopinu.",
   guildOnly: true,
   enabled: true,
+  aliases: [ "autopin", "ap" ],
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
@@ -20,9 +21,9 @@ module.exports = {
         else data.push("-kanał działania: <#" + autopin[i][0] + ">,")
         data.push("-reakcja: " + autopin[i][1] + ",")
         data.push("-wymagana liczba tej reakcji: " + autopin[i][2] + ",")
-        data.push("-musi zawierać: \"" + autopin[i][3] + "\",")
-        //if (autopin[i][4] == "true") data.push("-cofa przypięcie po cofnięciu rekacji.\n")
-        //else data.push("-nie cofa przypięcia po cofnięciu rekacji.\n")
+        data.push("-musi zawierać: \"" + autopin[i][3] + "\".")
+        if (autopin[i][4] == "true") data.push("-cofa przypięcie po usunięciu rekacji.\n")
+        else data.push("-nie cofa przypięcia po usunięciu rekacji.\n")
       }
     } else data.push("Nie ustawiono jeszcze żadnego schematu autopinu! Napisz " + prefix + "set-autopin-scheme, aby to zmienić.")
 

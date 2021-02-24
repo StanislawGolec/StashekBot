@@ -6,6 +6,7 @@ module.exports = {
   args: true,
   guildOnly: true,
   enabled: true,
+  aliases: [ "delete-autopin", "dap" ],
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 

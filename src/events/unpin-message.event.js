@@ -1,7 +1,7 @@
 module.exports = {
   name: "unpin-message",
   event: "messageReactionRemove",
-  enabled: false,
+  enabled: true,
 
   async run(reaction, user) {
     if (reaction.partial) await reaction.fetch()
@@ -15,65 +15,29 @@ module.exports = {
 
     if (!autopin) return
 
-    try {
-      for (let autopinScheme of autopin) {
-        if (autopinScheme[0] != "all" && channel.id != autopinScheme[0]) continue
-        if (reaction.emoji.id == null) {
-          if (reaction.emoji.name != autopinScheme[1]) continue
-        } else {
-          if (reaction.emoji.id != autopinScheme[1].slice(autopinScheme[1].lastIndexOf(":") + 1, -1)) continue
-        }
+    for (let i = 0; i < autopin.length; i++) {
+      if (autopin[i][0] != "all" && channel.id != autopin[i][0]) continue
 
-        if (reaction.count != autopinScheme[2]) continue
-      //  console.log(message.embeds)
-      //  console.log(message.attachments)
-        switch (autopinScheme[3]) {
-          case "noting-special":
-            message.pin()
-        //  case "image":
-        //    console.log("lol")
-        //    for (let attachment of message.attachments) {
-      //        if (attachment[1].attachment.endsWith(".png") || attachment[1].attachment.endsWith(".jpeg") || attachment[1].attachment.endsWith(".jpg") || attachment[1].attachment.endsWith(".jpe") || attachment[1].attachment.endsWith(".jfif")) {
-      //          message.pin()
-      //          break
-      //        }
-      //      }
-            break
-          case "image-or-gif":
-            if (message.attachments) {
-              console.log(message.attachments)
-              for (let attachment of message.attachments) {
-                if (attachment[1].attachment.endsWith(".png") || attachment[1].attachment.endsWith(".jpeg") || attachment[1].attachment.endsWith(".jpg") || attachment[1].attachment.endsWith(".jpe") || attachment[1].attachment.endsWith(".jfif")) {
-                  message.pin()
-                  break
-                }
-              }
-            }
-            console.log(message.embeds)
-            for (let embed of message.embeds) {
-              if (embed.type == "image") {
-                return message.pin()
-              }
-            }
-            break
-      //    case "video":
-      //      for (let embed of message.embeds) {
-      //        if (embed.type == "video") {
-      //          return message.pin()
-      //        }
-      //      }
-      //      break
-      //    case "link":
-      //      for (let embed of message.embeds) {
-      //        if (embed.type == "link") {
-      //          return message.pin()
-      //        }
-      //      }
-      //      break
+      if (reaction.emoji.id == null) {
+        if (reaction.emoji.name != autopin[i][1]) continue
+      } else {
+        if (reaction.emoji.id != autopin[i][1].slice(autopin[i][1].lastIndexOf(":") + 1, -1)) continue
+      }
+
+      for (let j = 0; j < autopin.length; j++) {
+        if (autopin[j][0] != "all" && channel.id != autopin[j][0]) continue
+
+        for (let messageReaction of message.reactions.cache) {
+          if (messageReaction[1].emoji.id == null) {
+            if (messageReaction[1].emoji.name != autopin[j][1]) continue
+          } else {
+            if (messageReaction[1].emoji.id != autopin[j][1].slice(autopin[j][1].lastIndexOf(":") + 1, -1)) continue
+          }
+          if (messageReaction[1].count >= autopin[j][2]) return
         }
       }
-    } catch (error) {
-      return console.log(error)
+
+      if (reaction.count < autopin[i][2] && autopin[i][4] == "true") message.unpin()
     }
   }
 }
