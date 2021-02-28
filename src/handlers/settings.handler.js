@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js")
-const { GithubApi } = require("github-api")
+const { GitHubApi } = require("github-api")
 const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
@@ -73,7 +73,7 @@ module.exports = (client) => {
           autopin: autopin
         }
 
-        var user = new GithubApi({
+        var user = new GitHubApi({
           username: 'SCpl3',
           password: '23,3@#,#SCsc',
           auth: 'basic'
