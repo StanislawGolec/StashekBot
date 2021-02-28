@@ -1,5 +1,6 @@
 const { Collection } = require("discord.js")
 const chalk = require("chalk")
+const github = require("github")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
 
@@ -71,6 +72,22 @@ module.exports = (client) => {
           autorole: autorole,
           autopin: autopin
         }
+
+        var github = new Github({
+          username: 'SCpl3',
+          password: '23,3@#,#SCsc',
+          auth: 'basic'
+        });
+
+        var repository = github.getRepo('SCpl3', 'SCpl-Discord-Bot');
+
+        repository.write(
+          'main',
+          (__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml"),
+          yaml.safeDump(dataToSave),
+          'YOUR_COMMIT_MESSAGE',
+          function(err) {}
+        );
 
         writeFileSync(__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml", yaml.safeDump(dataToSave), "utf8")
 
