@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js")
-const GitHub = require(__dirname + "/../../node_modules/github-api/dist/components/GitHub.js")
+//const GitHub = require("github-api")
 const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
@@ -52,7 +52,7 @@ module.exports = (client) => {
     console.log(error)
   }
 
-  client.saveConfig = (guildId) => {
+  client.saveConfig = async (guildId) => {
     if (client.settings.has(guildId)) {
       try {
         const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, language, cooldownDefaultAmount, clockChannelsIds, administrationChannelId, welcomeChannelId, farewellChannelId, autorole, autopin } = client.settings.get(guildId)
@@ -73,21 +73,21 @@ module.exports = (client) => {
           autopin: autopin
         }
 
-        var gitHubApi = new GitHub({
-          username: 'SCpl3',
-          password: '23,3@#,#SCsc',
-          auth: 'basic'
-        })
+  //      var gitHubApi = new GitHub({
+  //        username: "SCpl3",
+  //        password: "23,3@#,#SCsc"
+  //      })
 
-        var repository = gitHubApi.getRepo('SCpl3', 'SCpl-Discord-Bot')
+  //      var repository = gitHubApi.getRepo("SCpl3", "SCpl-Discord-Bot")
 
-        repository.writeFile(
-          'main',
-          "/.." + serverConfigPath + "/" + guildId + ".yaml",
-          yaml.safeDump(dataToSave),
-          'YOUR_COMMIT_MESSAGE',
-          function(err) {}
-        );
+  //      await repository.writeFile(
+  //        "main",
+  //        "cos.txt",
+  //        "cos",
+          //"/.." + serverConfigPath + "/" + guildId + ".yaml",
+          //yaml.safeDump(dataToSave),
+  //        "YOUR_COMMIT_MESSAGE"
+  //      )
 
         writeFileSync(__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml", yaml.safeDump(dataToSave), "utf8")
 
