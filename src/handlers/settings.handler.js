@@ -1,6 +1,5 @@
 const { Collection } = require("discord.js")
-const chalk = require("chalk")
-const github = require("github.js")
+const { Github, write } = require("github.js")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
 
