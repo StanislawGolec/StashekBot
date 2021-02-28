@@ -3,7 +3,7 @@ const { GitHubApi } = require("github-api")
 const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
-
+console.log(typeof GitHubApi)
 const serverConfigPath = "/config/servers/"
 
 module.exports = (client) => {
@@ -73,13 +73,13 @@ module.exports = (client) => {
           autopin: autopin
         }
 
-        var user = new GitHubApi({
+        var gitHubApi = new GitHubApi({
           username: 'SCpl3',
           password: '23,3@#,#SCsc',
           auth: 'basic'
         })
 
-        var repository = user.getRepo('SCpl3', 'SCpl-Discord-Bot')
+        var repository = gitHubApi.getRepo('SCpl3', 'SCpl-Discord-Bot')
 
         repository.write(
           'main',
