@@ -1,9 +1,9 @@
 const { Collection } = require("discord.js")
-const GitHub = require(__dirname + "/../../node_modules/github-api/dist/components/GitHub.js")
+require("github-api")
 const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
-console.log(typeof GitHubApi)
+
 const serverConfigPath = "/config/servers/"
 
 module.exports = (client) => {
