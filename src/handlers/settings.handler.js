@@ -83,7 +83,7 @@ module.exports = (client) => {
 
         repository.writeFile(
           'main',
-          (__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml"),
+          __dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml",
           yaml.safeDump(dataToSave),
           'YOUR_COMMIT_MESSAGE',
           function(err) {}
