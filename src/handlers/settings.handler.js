@@ -73,7 +73,7 @@ module.exports = (client) => {
           autopin: autopin
         }
 
-        var user = new Github({
+        var user = new GithubApi({
           username: 'SCpl3',
           password: '23,3@#,#SCsc',
           auth: 'basic'
