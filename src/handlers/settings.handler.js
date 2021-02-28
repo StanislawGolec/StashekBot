@@ -72,22 +72,6 @@ module.exports = (client) => {
           autopin: autopin
         }
 
-        var github = new Github({
-          username: 'SCpl3',
-          password: '23,3@#,#SCsc',
-          auth: 'basic'
-        });
-
-        var repository = github.getRepo('SCpl3', 'SCpl-Discord-Bot');
-
-        repository.write(
-          'BRANCH_NAME',
-          (__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml"),
-          yaml.safeDump(dataToSave),
-          'YOUR_COMMIT_MESSAGE',
-          function(err) {}
-        );
-
         writeFileSync(__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml", yaml.safeDump(dataToSave), "utf8")
 
         const settingsFile = readFileSync(__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml", "utf8")
