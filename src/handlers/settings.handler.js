@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js")
-require("github-api")
+const GitHub = require(__dirname + "/../../node_modules/github-api/dist/components/GitHub.js")
 const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
@@ -81,7 +81,7 @@ module.exports = (client) => {
 
         var repository = gitHubApi.getRepo('SCpl3', 'SCpl-Discord-Bot')
 
-        repository.write(
+        repository.writeFile(
           'main',
           (__dirname + "/.." + serverConfigPath + "/" + guildId + ".yaml"),
           yaml.safeDump(dataToSave),
