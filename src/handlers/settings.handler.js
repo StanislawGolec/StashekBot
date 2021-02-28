@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js")
-const GitHub = require("/../../node_modules/github-api/dist/components/GitHub.js")
+const GitHub = require(__dirname + "/../../node_modules/github-api/dist/components/GitHub.js")
 const chalk = require("chalk")
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require("fs")
 const yaml = require("js-yaml")
