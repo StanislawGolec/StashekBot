@@ -73,11 +73,11 @@ module.exports = (client) => {
           autopin: autopin
         }
 
-        var user = new Github({
+        var user = {
           username: 'SCpl3',
           password: '23,3@#,#SCsc',
           auth: 'basic'
-        });
+        }
 
         var repository = user.getRepo('SCpl3', 'SCpl-Discord-Bot');
 
