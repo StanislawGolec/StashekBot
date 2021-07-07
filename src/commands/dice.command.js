@@ -4,8 +4,8 @@ module.exports = {
   enabled: true,
   botPermissions: ["SEND_MESSAGES"],
 
-  run(msg) {
-    const { channel } = msg
+  run(message) {
+    const { channel } = message
     const value = Math.floor((Math.random() * 6)) + 1
     channel.send("Wylosowana wartość: " + value + ".")
   }

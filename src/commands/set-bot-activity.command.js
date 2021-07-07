@@ -10,8 +10,8 @@ module.exports = {
   enabled: true,
   aliases: [ "bot-activity", "bot-status" ],
 
-  run(msg, args) {
-    const { client, channel } = msg
+  run(message, args) {
+    const { client, channel } = message
 
     let type = ""
     let name = ""

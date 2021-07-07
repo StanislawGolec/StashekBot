@@ -46,8 +46,8 @@ module.exports = (client) => {
 
   //client.on("messageReactionAdd", (reaction, user) => {})
 
-  client.on("message", (msg) => {
-    const { author, guild, member, channel, client } = msg
+  client.on("message", (message) => {
+    const { author, guild, member, channel, client } = message
 
     const { settings } = client
 
@@ -55,9 +55,9 @@ module.exports = (client) => {
 
     if (author.bot) return
 
-    if (!msg.content.startsWith(prefix)) return
+    if (!message.content.startsWith(prefix)) return
 
-    const args = msg.content
+    const args = message.content
       .slice(prefix.length)
       .trim()
       .split(" ")
@@ -98,11 +98,11 @@ module.exports = (client) => {
       }
 
       if (cmd.guildOnly && !guild) {
-        return msg.channel.send("Ta komenda działa tylko na serwerach Discord!")
+        return message.channel.send("Ta komenda działa tylko na serwerach Discord!")
       }
 
       if (cmd.dmOnly && guild) {
-        return msg.channel.send("Ta komenda działa tylko w prywatnych wiadomościach!")
+        return message.channel.send("Ta komenda działa tylko w prywatnych wiadomościach!")
       }
     }
 
@@ -122,7 +122,7 @@ module.exports = (client) => {
 
     if (cmd.args && !args.length) {
       if (cmd.usage) {
-        let reply = "Poprawne użycie komendy: " + prefix + cmdName
+        let reply = "Poprawne użycie komendy: " + prefix + cmd.name
 
         let usage = ""
         for (var i = 0; i < cmd.usageChars.length; i++) {
@@ -154,7 +154,7 @@ module.exports = (client) => {
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000
-        return msg.channel.send("Możesz użyć tę komendę ponownie dopiero za " + timeLeft.toFixed(1))
+        return message.channel.send("Możesz użyć tę komendę ponownie dopiero za " + timeLeft.toFixed(1))
       }
     }
 
@@ -164,7 +164,7 @@ module.exports = (client) => {
     }, cooldownAmount)
 
     try {
-      cmd.run(msg, args)
+      cmd.run(message, args)
     } catch (error) {
       console.log(error)
       channel.send("Wystąpił błąd w trakcie próby użycia tej komendy!")

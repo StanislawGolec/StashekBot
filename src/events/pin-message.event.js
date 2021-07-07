@@ -17,6 +17,7 @@ module.exports = {
 
     for (let i = 0; i < autopin.length; i++) {
       if (autopin[i][0] != "all" && channel.id != autopin[i][0]) continue
+
       if (reaction.emoji.id == null) {
         if (reaction.emoji.name != autopin[i][1]) continue
       } else {

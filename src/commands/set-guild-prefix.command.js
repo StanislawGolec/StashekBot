@@ -10,8 +10,8 @@ module.exports = {
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
-  run(msg, args) {
-    const { channel, guild, client } = msg
+  run(message, args) {
+    const { channel, guild, client } = message
     const { settings } = client
 
     const { prefix } = client.configVariables(client, guild)

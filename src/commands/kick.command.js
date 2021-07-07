@@ -9,8 +9,8 @@ module.exports = {
   botPermissions: [ "SEND_MESSAGES", "KICK_MEMBERS" ],
   userPermissions: [ "KICK_MEMBERS" ],
 
-  async run(msg, args) {
-    const { channel, guild, author, mentions } = msg
+  async run(message, args) {
+    const { channel, guild, author, mentions } = message
 
     const user = mentions.users.first()
     const reason = [...args].slice(1).join(" ")

@@ -7,8 +7,8 @@ module.exports = {
   enabled: true,
   botPermissions: ["SEND_MESSAGES"],
 
-  run(msg, args) {
-    const { channel } = msg
+  run(message, args) {
+    const { channel } = message
     let from = parseInt(args[0])
     let to = parseInt(args[1])
 

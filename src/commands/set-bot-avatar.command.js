@@ -8,8 +8,8 @@ module.exports = {
   enabled: true,
   aliases: [ "bot-avatar" ],
 
-  run(msg, args) {
-    const { client } = msg
+  run(message, args) {
+    const { client } = message
 
     const avatar = args.join(" ")
 

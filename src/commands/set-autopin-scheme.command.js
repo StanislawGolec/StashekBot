@@ -12,8 +12,8 @@ module.exports = {
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
-  run(msg, args) {
-    const { channel, guild, client, mentions } = msg
+  run(message, args) {
+    const { channel, guild, client, mentions } = message
     const { settings } = client
 
     if (!settings.get(guild.id)) {

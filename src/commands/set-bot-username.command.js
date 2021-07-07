@@ -10,8 +10,8 @@ module.exports = {
   enabled: true,
   aliases: [ "set-bot-nickname", "set-bot-nick", "bot-username", "bot-nickname", "bot-nick" ],
 
-  run(msg, args) {
-    const { client, channel } = msg
+  run(message, args) {
+    const { client, channel } = message
 
     const username = args.join(" ")
 

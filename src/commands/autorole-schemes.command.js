@@ -2,13 +2,13 @@ module.exports = {
   name: "autorole-schemes",
   description: "Komenda wyświetla ustawione schematy autorole'i.",
   guildOnly: true,
-  enabled: false,
-  aliases: [ "autorole", "ar" ],
+  enabled: true,
+  aliases: [ "autoroles", "ars" ],
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
-  run(msg, args) {
-    const { channel, guild, client, mentions } = msg
+  run(message, args) {
+    const { channel, guild, client, mentions } = message
 
     const { prefix, autorole } = client.configVariables(client, guild)
 
@@ -19,11 +19,9 @@ module.exports = {
         data.push("Schemat numer " + (i + 1) + ":")
         data.push("-id wiadomości: " + autorole[i][0] + ",")
         data.push("-reakcja: " + autorole[i][1] + ",")
-        data.push("-id roli do nadania: " + guild.roles.cache.get(autorole[i][2]).name + ".")
-        //if (autopin[i][4] == "true") data.push("-cofa przypięcie po cofnięciu rekacji.\n")
-        //else data.push("-nie cofa przypięcia po cofnięciu rekacji.\n")
+        data.push("-nazwa roli do nadania: " + guild.roles.cache.get(autorole[i][2]).name + ".")
       }
-    } else data.push("Nie ustawiono jeszcze żadnego schematu autopinu! Napisz " + prefix + "set-autopin-scheme, aby to zmienić.")
+    } else data.push("Nie ustawiono jeszcze żadnego schematu autorole'i! Napisz " + prefix + "set-autorole-scheme, aby to zmienić.")
 
     channel.send(data)
   }

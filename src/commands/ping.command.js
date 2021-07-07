@@ -4,8 +4,8 @@ module.exports = {
   enabled: true,
   botPermissions: ["SEND_MESSAGES"],
 
-  run(msg) {
-    const { channel } = msg
+  run(message) {
+    const { channel } = message
     channel.send("Pong!")
   }
 }

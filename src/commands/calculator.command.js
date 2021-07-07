@@ -8,8 +8,8 @@ module.exports = {
   aliases: [ "calc" ],
   botPermissions: ["SEND_MESSAGES"],
 
-  run(msg, args) {
-    const { channel } = msg
+  run(message, args) {
+    const { channel } = message
     const text = args.join("")
     console.log("START")
     console.log(text)

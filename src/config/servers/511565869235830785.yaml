@@ -1,0 +1,38 @@
+prefix: $
+argsChar1: (
+argsChar2: )
+argsChar3: '['
+argsChar4: ']'
+language: Polish
+cooldownDefaultAmount: '0'
+clockChannelsIds: null
+administrationChannelId: null
+welcomeChannelId: null
+farewellChannelId: null
+autorole: []
+autopin:
+  - - '729973795225468959'
+    - "\U0001F60B"
+    - '6'
+    - noting-special
+    - 'false'
+  - - '812409233131438140'
+    - "\U0001F923"
+    - '14'
+    - noting-special
+    - 'false'
+  - - '812409233131438140'
+    - "\U0001F602"
+    - '14'
+    - noting-special
+    - 'false'
+  - - '812409233131438140'
+    - '<:plus1:799367666354618398>'
+    - '14'
+    - noting-special
+    - 'false'
+  - - '812409233131438140'
+    - '<:kekw:720650436410998828>'
+    - '14'
+    - noting-special
+    - 'false'

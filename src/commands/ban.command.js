@@ -9,8 +9,8 @@ module.exports = {
   botPermissions: [ "SEND_MESSAGES", "BAN_MEMBERS" ],
   userPermissions: [ "BAN_MEMBERS" ],
 
-  async run(msg, args) {
-    const { channel, guild, author, mentions } = msg
+  async run(message, args) {
+    const { channel, guild, author, mentions } = message
 
     const user = mentions.users.first()
     const days = parseInt(args[1])

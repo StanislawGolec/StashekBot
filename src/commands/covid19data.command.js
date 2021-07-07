@@ -10,8 +10,8 @@ module.exports = {
   aliases: [ "covid", "covid19", "coviddata" ],
   botPermissions: [ "SEND_MESSAGES" ],
 
-  run(msg, args) {
-    const { channel, client: { axios } } = msg
+  run(message, args) {
+    const { channel, client: { axios } } = message
 
     const arg = args[0]
     const title = "Covid 19 - dane"

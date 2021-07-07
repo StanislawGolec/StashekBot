@@ -6,8 +6,8 @@ module.exports = {
   enabled: true,
   botPermissions: [ "SEND_MESSAGES" ],
 
-  run(msg, args) {
-    const { author, guild, channel, client } = msg
+  run(message, args) {
+    const { author, guild, channel, client } = message
     const { commands } = client
     const { prefix, argsChar1, argsChar2, argsChar3, argsChar4, cooldownDefaultAmount, owner } = client.configVariables(client, guild)
 
@@ -36,7 +36,7 @@ module.exports = {
       data.push("-na początku jest prefix (\"" + prefix + "\"),")
       data.push("-potem jest nazwa komendy,")
       data.push("-na końcu są argumenty (te pomiędzy \"" + argsChar1 + argsChar2 + "\" to argumenty niezbędne, a te pomiędzy \"" + argsChar3 + argsChar4 + "\" to argumenty opcjonalne*).")
-      //data.push("*Powyżej w tym fragmencie - \"" + prefix + "help " + argsChar1 + "nazwa komendy" + argsChar2 + " \"nazwa komendy\" jest pomiędzy \"" + argsChar1 + argsChar2 + "\", ponieważ tam jest wytłumaczone, jak uzyskać dany efekt, do którego akurat ten argument jest niezbędny.")
+      data.push("*Powyżej w tym fragmencie - \"" + prefix + "help " + argsChar1 + "nazwa komendy" + argsChar2 + " \"nazwa komendy\" jest pomiędzy \"" + argsChar1 + argsChar2 + "\", ponieważ tam jest wytłumaczone, jak uzyskać dany efekt, do którego akurat ten argument jest niezbędny.")
       if (cooldownDefaultAmount > 0) data.push("Wszystkie komendy mają włączony cooldown - to czas, który musisz odczekać zanim będziesz mógł ponownie użyć danej komendy.")
       else data.push("Niektóre komendy mogą mieć włączony cooldown - to czas, który musisz odczekać zanim będziesz mógł ponownie użyć danej komendy.")
       channel.send(data, { split: true })
@@ -47,7 +47,7 @@ module.exports = {
         commands.find((command) => command.aliases && command.aliases.includes(name))
 
       if (!command) {
-        msg.channel.send("Nie znaleziono takiej komendy! Napisz " + prefix + "help, aby wyświelić listę wszystkich istniejących komend.")
+        message.channel.send("Nie znaleziono takiej komendy! Napisz " + prefix + "help, aby wyświelić listę wszystkich istniejących komend.")
       }
       else {
         if (command.ownerOnly && ((author.id == owner && guild) || author.id != owner)) {
@@ -87,7 +87,7 @@ module.exports = {
           }
         }
 
-        msg.channel.send(data, { split: true })
+        message.channel.send(data, { split: true })
       }
     }
   }

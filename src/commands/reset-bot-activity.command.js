@@ -5,8 +5,8 @@ module.exports = {
   enabled: true,
   aliases: [ "reset-bot-status" ],
 
-  run(msg, args) {
-    const { client } = msg
+  run(message, args) {
+    const { client } = message
 
     try {
       client.user.setPresence({})

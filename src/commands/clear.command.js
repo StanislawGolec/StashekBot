@@ -10,8 +10,8 @@ module.exports = {
   botPermissions: [ "SEND_MESSAGES", "MANAGE_MESSAGES" ],
   userPermissions: [ "MANAGE_MESSAGES" ],
 
-  run(msg, args) {
-    const { channel } = msg
+  run(message, args) {
+    const { channel } = message
 
     const amount = parseInt(args[0])
 

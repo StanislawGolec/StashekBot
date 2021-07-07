@@ -3,12 +3,12 @@ module.exports = {
   description: "Komenda wyświetla ustawione schematy autopinu.",
   guildOnly: true,
   enabled: true,
-  aliases: [ "autopin", "ap" ],
+  aliases: [ "autopins", "aps" ],
   botPermissions: [ "SEND_MESSAGES" ],
   userPermissions: [ "ADMINISTRATOR" ],
 
-  run(msg, args) {
-    const { channel, guild, client, mentions } = msg
+  run(message, args) {
+    const { channel, guild, client, mentions } = message
 
     const { prefix, autopin } = client.configVariables(client, guild)
 

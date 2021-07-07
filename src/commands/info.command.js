@@ -6,8 +6,8 @@ module.exports = {
   enabled: false,
   botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
 
-  run(msg) {
-    const { channel } = msg
+  run(message) {
+    const { channel } = message
 
     const botName = "SCpl Bot"
     const botDescription = "Uniwersalny Bot"
