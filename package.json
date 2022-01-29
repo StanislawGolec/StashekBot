@@ -1,26 +1,11 @@
 {
-  "name": "sctestbotjs1",
-  "version": "1.0.0",
-  "description": "univeral bot",
-  "main": "src/index.js",
-  "scripts": {
-    "dev": "node src/index.js",
-    "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "universal-bot",
-    "universal",
-    "bot"
-  ],
-  "author": "SCpl",
-  "license": "MIT",
   "dependencies": {
-    "ascii-table": "0.0.9",
-    "axios": "^0.21.1",
-    "chalk": "^4.1.0",
-    "discord.js": "^12.4.1",
+    "ascii-table": "^0.0.9",
+    "axios": "^0.25.0",
+    "chalk": "^4.1.2",
+    "discord.js": "^13.6.0",
+    "fs": "^0.0.1-security",
     "github-api": "^3.4.0",
-    "js-yaml": "^3.14.1"
+    "js-yaml": "^4.1.0"
   }
 }
